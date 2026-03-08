@@ -1,0 +1,429 @@
+/* F3 Nation Status Page — Styles
+   Matches branding from f3-org-map: Inter font, F3 color palette */
+
+:root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #111827;
+  background-color: #f6f3ea;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --f3-black: #0b0d12;
+  --f3-charcoal: #151a24;
+  --f3-red: #B70D06;
+  --f3-red-dark: #6D2A23;
+  --f3-cream: #f6f3ea;
+  --f3-ink: #111827;
+  --f3-muted: #6b7280;
+  --f3-border: #e5e7eb;
+  --f3-card: #ffffff;
+  --f3-link: #B70D06;
+
+  --status-green: #16a34a;
+  --status-green-bg: #dcfce7;
+  --status-yellow: #ca8a04;
+  --status-yellow-bg: #fef9c3;
+  --status-red: #dc2626;
+  --status-red-bg: #fee2e2;
+  --status-gray: #9ca3af;
+  --status-gray-bg: #f3f4f6;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--f3-cream);
+}
+
+#app {
+  min-height: 100vh;
+}
+
+/* ─── Layout ────────────────────────────────────────────────────── */
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ─── Header ────────────────────────────────────────────────────── */
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.25rem 2rem;
+  background: var(--f3-black);
+  color: var(--f3-cream);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.brand-logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+}
+
+.brand-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.brand-subtitle {
+  font-size: 0.85rem;
+  color: rgba(215, 38, 56, 0.85);
+  letter-spacing: 0.02em;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.btn-refresh {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--f3-red);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 0.45rem 1.1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-refresh:hover {
+  background: var(--f3-red-dark);
+}
+
+.btn-refresh:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-refresh svg {
+  width: 16px;
+  height: 16px;
+}
+
+.btn-refresh.is-spinning svg {
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ─── Main Content ──────────────────────────────────────────────── */
+
+.content {
+  max-width: 780px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 3rem;
+}
+
+/* ─── Overall status banner ─────────────────────────────────────── */
+
+.status-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: 14px;
+  margin-bottom: 2rem;
+  font-weight: 600;
+  font-size: 1.15rem;
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.status-banner.is-operational {
+  background: var(--status-green-bg);
+  color: var(--status-green);
+  border: 1px solid rgba(22, 163, 74, 0.2);
+}
+
+.status-banner.is-degraded {
+  background: var(--status-yellow-bg);
+  color: var(--status-yellow);
+  border: 1px solid rgba(202, 138, 4, 0.2);
+}
+
+.status-banner.is-down {
+  background: var(--status-red-bg);
+  color: var(--status-red);
+  border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+.status-banner.is-checking {
+  background: var(--status-gray-bg);
+  color: var(--status-gray);
+  border: 1px solid rgba(156, 163, 175, 0.2);
+}
+
+.status-icon {
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.status-banner-text {
+  flex: 1;
+}
+
+.status-banner-sub {
+  font-size: 0.8rem;
+  font-weight: 400;
+  opacity: 0.75;
+  margin-top: 0.15rem;
+}
+
+/* ─── Service cards ─────────────────────────────────────────────── */
+
+.services-heading {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--f3-muted);
+  margin-bottom: 0.75rem;
+}
+
+.service-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.service-card {
+  background: var(--f3-card);
+  border-radius: 12px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+  border: 1px solid var(--f3-border);
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.service-card:hover {
+  box-shadow: 0 4px 16px rgba(15, 23, 42, 0.1);
+}
+
+.service-indicator {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  transition: background 0.3s ease;
+}
+
+.service-indicator.is-operational { background: var(--status-green); }
+.service-indicator.is-degraded    { background: var(--status-yellow); }
+.service-indicator.is-down        { background: var(--status-red); }
+.service-indicator.is-checking    { background: var(--status-gray); animation: pulse 1.5s ease-in-out infinite; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+.service-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.service-name {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--f3-ink);
+}
+
+.service-url {
+  font-size: 0.78rem;
+  color: var(--f3-muted);
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.service-url:hover {
+  color: var(--f3-link);
+  text-decoration: underline;
+}
+
+.service-meta {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.service-status-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.service-status-label.is-operational { color: var(--status-green); }
+.service-status-label.is-degraded    { color: var(--status-yellow); }
+.service-status-label.is-down        { color: var(--status-red); }
+.service-status-label.is-checking    { color: var(--status-gray); }
+
+.service-latency {
+  font-size: 0.72rem;
+  color: var(--f3-muted);
+  margin-top: 0.1rem;
+}
+
+.service-detail {
+  font-size: 0.78rem;
+  color: var(--f3-muted);
+  margin-top: 0.25rem;
+  max-width: 500px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ─── Help / FAQ Section ────────────────────────────────────────── */
+
+.help-section {
+  background: var(--f3-card);
+  border-radius: 14px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+  border: 1px solid var(--f3-border);
+  margin-bottom: 2rem;
+}
+
+.help-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--f3-ink);
+  margin: 0 0 0.75rem;
+}
+
+.help-item {
+  margin-bottom: 0.85rem;
+}
+
+.help-item:last-child {
+  margin-bottom: 0;
+}
+
+.help-q {
+  font-weight: 600;
+  font-size: 0.88rem;
+  color: var(--f3-ink);
+  margin-bottom: 0.15rem;
+}
+
+.help-a {
+  font-size: 0.85rem;
+  color: var(--f3-muted);
+  line-height: 1.55;
+}
+
+.help-a a {
+  color: var(--f3-link);
+  text-decoration: none;
+}
+
+.help-a a:hover {
+  text-decoration: underline;
+}
+
+/* ─── Footer ────────────────────────────────────────────────────── */
+
+.footer {
+  margin-top: auto;
+  padding: 1.25rem 2rem;
+  background: var(--f3-black);
+  color: rgba(248, 244, 234, 0.5);
+  font-size: 0.78rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.footer a {
+  color: rgba(215, 38, 56, 0.7);
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: rgba(215, 38, 56, 1);
+  text-decoration: underline;
+}
+
+.last-checked {
+  font-size: 0.78rem;
+  color: var(--f3-muted);
+  text-align: center;
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+/* ─── Responsive ────────────────────────────────────────────────── */
+
+@media (max-width: 640px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .brand-title {
+    font-size: 1.1rem;
+  }
+
+  .content {
+    padding: 1.25rem 1rem 2rem;
+  }
+
+  .status-banner {
+    font-size: 1rem;
+  }
+
+  .service-card {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .service-meta {
+    text-align: left;
+    width: 100%;
+    padding-left: 1.75rem;
+  }
+
+  .service-detail {
+    white-space: normal;
+  }
+}
