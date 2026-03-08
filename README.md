@@ -1,4 +1,4 @@
-# F3 Nation — System Status
+# F3 Nation — System Status 
 
 A real-time status page for F3 Nation services, built with **TypeScript + Vite** and deployed to **GitHub Pages** at [status.f3nation.com](https://status.f3nation.com).
 
