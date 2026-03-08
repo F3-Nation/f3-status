@@ -79,10 +79,17 @@ async function checkJson(
   }
 
   const json = await res.json()
-  // API /ping should return { status: "alive", timestamp: "..." }
-  if (json && (json.status === 'alive' || json.status === 'ok')) {
-    const ts = json.timestamp ? ` @ ${json.timestamp}` : ''
-    return result('operational', latency, `${json.status}${ts}`, start)
+  // API /ping may return either:
+  // - { status: "alive" | "ok", timestamp: "..." }
+  // - { alive: true, timestamp: "..." }
+  const statusValue = typeof json?.status === 'string' ? json.status.toLowerCase() : null
+  const isAliveBoolean = json?.alive === true
+  const isAliveStatus = statusValue === 'alive' || statusValue === 'ok'
+
+  if (json && (isAliveStatus || isAliveBoolean)) {
+    const label = isAliveStatus ? statusValue : 'alive'
+    const ts = typeof json.timestamp === 'string' ? ` @ ${json.timestamp}` : ''
+    return result('operational', latency, `${label}${ts}`, start)
   }
 
   return result('degraded', latency, `Unexpected JSON response: ${JSON.stringify(json).slice(0, 120)}`, start)

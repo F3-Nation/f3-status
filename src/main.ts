@@ -82,7 +82,7 @@ app.innerHTML = `
           <div class="help-q">A service shows "Down" — what should I do?</div>
           <div class="help-a">
             Wait a minute and hit <strong>Refresh</strong>. If the issue persists, reach out in the
-            <strong>#it-support</strong> channel on F3 Nation Slack or email
+            <strong>#tech</strong> channel on F3 Nation Slack or email
             <a href="mailto:it@f3nation.com">it@f3nation.com</a>.
           </div>
         </div>

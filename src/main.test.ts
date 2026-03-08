@@ -1,5 +1,9 @@
-import { describe, it, expect } from 'vitest'
-import { services } from './services'
+import { describe, it, expect, vi, afterEach } from 'vitest'
+import { services, type ServiceDefinition } from './services'
+
+afterEach(() => {
+  vi.restoreAllMocks()
+})
 
 describe('services', () => {
   it('has all required services defined', () => {
@@ -46,5 +50,32 @@ describe('aggregateStatus', () => {
       ['b', { status: 'operational' as const, latencyMs: 50, detail: 'ok', checkedAt: new Date() }],
     ])
     expect(aggregateStatus(results)).toBe('down')
+  })
+})
+
+describe('checkService json checks', () => {
+  it('accepts { alive: true } API responses as operational', async () => {
+    const { checkService } = await import('./checker')
+
+    const service: ServiceDefinition = {
+      id: 'api-test',
+      name: 'API Test',
+      url: 'https://api.example.com/ping',
+      checkType: 'json',
+      description: 'test service',
+    }
+
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(
+      new Response(JSON.stringify({ alive: true, timestamp: '2026-03-08T18:23:40.015Z' }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      }),
+    )
+
+    const result = await checkService(service)
+
+    expect(result.status).toBe('operational')
+    expect(result.detail).toContain('alive')
+    expect(result.detail).toContain('2026-03-08T18:23:40.015Z')
   })
 })
